@@ -1,6 +1,115 @@
-<script src="config.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GEN Z SCIENCE | Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- API CONFIG -->
+  <script src="config.js"></script>
+
+  <style>
+    :root{--blue:#2864f0;--blue2:#4b83ff;--blue-soft:#edf3ff;--ink:#17233d;--muted:#8490a7;--line:#e9eef7;--surface:#fff;--page:#f4f7fc;--sidebar:#fff;--shadow:0 12px 34px rgba(28,62,125,.07);--green:#17b889;--red:#ed6472}
+    body.dark{--ink:#e9efff;--muted:#9aa9c5;--line:#25334d;--surface:#17243a;--page:#101a2c;--sidebar:#142138;--blue-soft:#1d345e;--shadow:0 12px 34px rgba(0,0,0,.18)}
+    *{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}button,input,textarea{font:inherit}button{cursor:pointer;border:0} .ambient{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}.orb{position:absolute;border-radius:50%;filter:blur(2px);opacity:.17;animation:float 14s ease-in-out infinite}.orb.one{width:360px;height:360px;background:#78a7ff;top:-150px;right:12%}.orb.two{width:260px;height:260px;background:#72d9ff;bottom:-100px;left:24%;animation-delay:-5s}.orb.three{width:180px;height:180px;background:#9c8cff;top:42%;right:-90px;animation-delay:-8s}@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,-28px)}}
+    .shell{position:relative;z-index:1;display:flex;min-height:100vh}.sidebar{width:252px;background:var(--sidebar);border-right:1px solid var(--line);padding:25px 17px;display:flex;flex-direction:column;transition:.25s;flex-shrink:0}.brand{display:flex;align-items:center;gap:12px;padding:3px 10px 30px}.brand-mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#2864f0,#72a2ff);display:grid;place-items:center;color:white;font-weight:800;font-size:19px;box-shadow:0 8px 18px #2864f044}.brand strong{font:800 14px Manrope;letter-spacing:.4px}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:3px;letter-spacing:1.5px}.nav-label{padding:13px 12px 9px;color:#a1abc0;font-size:10px;font-weight:800;letter-spacing:1.5px}.nav-btn{width:100%;display:flex;align-items:center;gap:13px;padding:12px 13px;margin:3px 0;border-radius:12px;background:transparent;color:var(--muted);text-align:left;font-weight:600;font-size:13px;transition:.2s}.nav-btn .ico{width:20px;text-align:center;font-size:17px}.nav-btn:hover{background:var(--blue-soft);color:var(--blue)}.nav-btn.active{background:linear-gradient(100deg,#2864f0,#4d82f6);color:white;box-shadow:0 8px 20px #2864f033}.sidebar-bottom{margin-top:auto}.admin-mini{margin:16px 4px 0;padding:13px;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;gap:10px}.avatar{width:35px;height:35px;border-radius:12px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-weight:800}.admin-mini b{font-size:12px}.admin-mini small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+    .main{flex:1;min-width:0;padding:25px 30px 40px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:28px}.crumb{color:var(--muted);font-size:12px}.crumb b{color:var(--ink)}.top-actions{display:flex;align-items:center;gap:10px}.icon-btn{width:40px;height:40px;border-radius:13px;background:var(--surface);border:1px solid var(--line);color:var(--ink);box-shadow:var(--shadow);font-size:17px}.menu-btn{display:none}.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:23px;flex-wrap:wrap}.page-head h1{font:800 25px Manrope;margin:0 0 7px;letter-spacing:-.7px}.page-head p{margin:0;color:var(--muted);font-size:13px}.date-chip{background:var(--surface);border:1px solid var(--line);padding:10px 14px;border-radius:12px;color:var(--muted);font-size:12px;box-shadow:var(--shadow)}
+    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:18px}.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}.stat{padding:19px 20px;min-height:133px}.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;font-weight:600}.stat-icon{width:37px;height:37px;border-radius:12px;background:var(--blue-soft);display:grid;place-items:center;font-size:17px}.stat-num{font:800 27px Manrope;margin-top:12px;letter-spacing:-1px}.stat-foot{font-size:10px;color:var(--muted);margin-top:3px}.stat:after{content:'';position:absolute;width:100px;height:100px;border-radius:50%;background:var(--blue-soft);right:-42px;bottom:-62px;opacity:.65}
+    .grid-main{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.9fr);gap:17px;margin-bottom:18px}.panel{padding:20px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.panel-head h3{font:800 14px Manrope;margin:0}.panel-head p{font-size:11px;color:var(--muted);margin:5px 0 0}.legend{font-size:10px;color:var(--muted)}.chart-wrap{height:210px;position:relative}.chart-wrap canvas{width:100%;height:100%}.district-list{display:flex;flex-direction:column;gap:15px}.district-row{display:grid;grid-template-columns:95px 1fr 28px;gap:10px;align-items:center;font-size:11px}.district-row span:first-child{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bar{height:7px;background:var(--blue-soft);border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#2864f0,#73a0ff)}.district-row b{text-align:right;font-size:11px}
+    .table-panel{padding:0}.table-head{padding:20px 21px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}.table-head h3{font:800 14px Manrope;margin:0}.table-tools{display:flex;align-items:center;gap:9px}.search{width:220px;max-width:45vw;border:1px solid var(--line);background:var(--page);color:var(--ink);border-radius:10px;padding:10px 12px;outline:none;font-size:12px}.search:focus{border-color:var(--blue)}.primary{background:var(--blue);color:#fff;padding:10px 14px;border-radius:10px;font-size:11px;font-weight:700;box-shadow:0 6px 15px #2864f033}.secondary{background:var(--blue-soft);color:var(--blue);padding:10px 13px;border-radius:10px;font-size:11px;font-weight:700}.table-scroll{overflow:auto}table{width:100%;border-collapse:collapse;min-width:720px}th{text-align:left;padding:13px 18px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.8px;background:var(--page);font-weight:800}td{padding:14px 18px;border-top:1px solid var(--line);font-size:11px;color:var(--ink)}tbody tr:hover{background:var(--blue-soft)}.student-cell{display:flex;align-items:center;gap:10px;font-weight:700}.student-avatar{width:31px;height:31px;border-radius:10px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-weight:800}.sub{display:block;color:var(--muted);font-size:10px;font-weight:400;margin-top:3px}.pill{padding:5px 9px;border-radius:20px;background:#e8f8f2;color:#16966d;font-size:10px;font-weight:700}.actions{display:flex;gap:6px}.tiny{width:29px;height:29px;border-radius:8px;background:var(--blue-soft);color:var(--blue)}.tiny.del{background:#fff0f1;color:var(--red)}.empty{text-align:center;padding:35px;color:var(--muted);font-size:12px}.table-foot{padding:13px 20px;color:var(--muted);font-size:10px;border-top:1px solid var(--line)}
+    .login-screen{position:fixed;inset:0;z-index:5;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#eaf1ffdd,#f7faffee)}body.dark .login-screen{background:linear-gradient(135deg,#101a2cee,#17243aee)}.login-card{width:min(420px,100%);padding:34px;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:0 25px 80px #1d4e9b22}.login-logo{width:54px;height:54px;border-radius:17px;background:linear-gradient(135deg,#2864f0,#72a2ff);display:grid;place-items:center;color:#fff;font:800 22px Manrope;margin-bottom:22px}.login-card h2{font:800 23px Manrope;margin:0 0 8px}.login-card p{font-size:12px;color:var(--muted);margin:0 0 24px}.field{margin:15px 0}.field label{display:block;font-size:11px;font-weight:700;margin-bottom:8px}.field input,.field textarea{width:100%;padding:13px 14px;border-radius:11px;border:1px solid var(--line);background:var(--page);color:var(--ink);outline:none}.field input:focus,.field textarea:focus{border-color:var(--blue)}.admin-password-wrap{position:relative}.admin-password-wrap input{padding-right:46px}.admin-password-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:transparent;color:var(--muted);font-size:17px;padding:5px}.login-submit{width:100%;padding:14px;border-radius:11px;background:linear-gradient(100deg,#2864f0,#5489ff);color:#fff;font-weight:800;margin-top:8px}.error{font-size:11px;color:var(--red);min-height:16px;margin-top:12px}.hidden{display:none!important}.modal-back{position:fixed;inset:0;z-index:7;background:#07152b77;display:grid;place-items:center;padding:18px;overflow:auto}.modal{width:min(560px,100%);background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:23px;box-shadow:0 25px 80px #0003;max-height:90vh;overflow:auto}.modal h3{font:800 17px Manrope;margin:0 0 18px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.detail-item small{display:block;color:var(--muted);font-size:10px;margin-bottom:5px}.detail-item b{font-size:12px;overflow-wrap:anywhere}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:22px}.toast{position:fixed;right:24px;bottom:24px;z-index:10;background:#14233d;color:#fff;padding:13px 17px;border-radius:12px;font-size:12px;box-shadow:0 10px 30px #0003;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none;max-width:80vw}.toast.show{opacity:1;transform:translateY(0)}
+    .content-item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+    .content-item:last-child{border-bottom:0}
+    .content-thumb{width:64px;height:64px;border-radius:10px;object-fit:cover;flex-shrink:0;background:var(--blue-soft);display:grid;place-items:center;font-size:22px;color:var(--muted)}
+    .content-body{flex:1;min-width:0}
+    .content-body b{font-size:12px;display:block}
+    .content-body .desc{color:var(--muted);font-size:10px;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .content-body .price{color:var(--green);font-weight:700;font-size:11px;margin-top:3px}
+    .content-cols{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+    @media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.grid-main{grid-template-columns:1fr}.content-cols{grid-template-columns:1fr}}@media(max-width:760px){.sidebar{position:fixed;z-index:4;left:-270px;top:0;bottom:0;box-shadow:20px 0 40px #14294b22}.sidebar.open{left:0}.main{padding:18px 14px 30px}.menu-btn{display:inline-grid;place-items:center}.page-head{align-items:flex-start;flex-direction:column}.date-chip{display:none}.stats{gap:10px}.stat{padding:15px;min-height:120px}.stat-num{font-size:23px}.table-head{align-items:flex-start;flex-direction:column}.table-tools{width:100%}.search{flex:1;max-width:none}.topbar{margin-bottom:20px}.page-head h1{font-size:22px}}@media(max-width:390px){.stats{grid-template-columns:1fr 1fr}.stat-top{font-size:10px}.stat-icon{width:31px;height:31px}.detail-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="ambient"><div class="orb one"></div><div class="orb two"></div><div class="orb three"></div></div>
+  <section id="loginScreen" class="login-screen">
+    <form class="login-card" id="loginForm">
+      <div class="login-logo">GZ</div><h2>Admin Portal</h2><p>GEN Z SCIENCE · Secure dashboard access</p>
+      <div class="field"><label>Admin username</label><input id="username" autocomplete="username" required placeholder="Enter username"></div>
+      <div class="field"><label>Password</label><div class="admin-password-wrap"><input id="password" type="password" autocomplete="current-password" required placeholder="Enter password"><button type="button" class="admin-password-toggle" aria-label="Show password" onclick="toggleAdminPassword()">👁</button></div></div>
+      <button class="login-submit" id="loginButton">Sign in to dashboard</button><div id="loginError" class="error"></div>
+    </form>
+  </section>
+  <div id="app" class="shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><div class="brand-mark">GZ</div><div><strong>GEN Z SCIENCE</strong><small>ADMINISTRATION</small></div></div>
+      <div class="nav-label">OVERVIEW</div>
+      <button class="nav-btn active" data-view="dashboard"><span class="ico">▦</span>Dashboard</button>
+      <button class="nav-btn" data-view="students"><span class="ico">♙</span>Students</button>
+      <div class="nav-label">WEBSITE</div>
+      <button class="nav-btn" data-view="content"><span class="ico">▤</span>Website Content</button>
+      <button class="nav-btn" data-view="gradeContent"><span class="ico">🎓</span>Grade Content</button>
+      <div class="sidebar-bottom"><button class="nav-btn" id="themeSide"><span class="ico">◐</span>Switch Theme</button><button class="nav-btn" id="logoutBtn"><span class="ico">⇥</span>Sign Out</button><div class="admin-mini"><div class="avatar">A</div><div><b>Administrator</b><small>System access</small></div></div></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div style="display:flex;align-items:center;gap:12px"><button class="icon-btn menu-btn" id="menuBtn">☰</button><div class="crumb">GEN Z SCIENCE <span style="color:var(--muted)"> / </span> <b id="crumbText">Dashboard</b></div></div><div class="top-actions"><button class="icon-btn" id="themeBtn" title="Toggle light/dark mode">◐</button><button class="icon-btn" id="refreshBtn" title="Refresh data">↻</button></div></header>
+      <section id="dashboardView">
+        <div class="page-head"><div><h1>Dashboard Overview</h1><p>Welcome back. Here's what's happening with your students.</p></div><div class="date-chip" id="todayDate">📅 Today</div></div>
+        <div class="stats">
+          <div class="card stat"><div class="stat-top">Total Students <span class="stat-icon">♙</span></div><div class="stat-num" id="totalCount">—</div><div class="stat-foot">All registered students</div></div>
+          <div class="card stat"><div class="stat-top">Districts Covered <span class="stat-icon">⌖</span></div><div class="stat-num" id="districtCount">—</div><div class="stat-foot">Unique districts</div></div>
+          <div class="card stat"><div class="stat-top">Recent Registrations <span class="stat-icon">✦</span></div><div class="stat-num" id="recentCount">—</div><div class="stat-foot">Latest 5 student records</div></div>
+          <div class="card stat"><div class="stat-top">Account Status <span class="stat-icon">✓</span></div><div class="stat-num" style="font-size:22px;color:var(--green)">Active</div><div class="stat-foot">Admin session secured</div></div>
+        </div>
+        <div class="grid-main">
+          <div class="card panel"><div class="panel-head"><div><h3>Registration Overview</h3><p>Student registrations by district</p></div><span class="legend">● Student count</span></div><div class="chart-wrap"><canvas id="chart"></canvas></div></div>
+          <div class="card panel"><div class="panel-head"><div><h3>Top Districts</h3><p>Where students are joining from</p></div></div><div class="district-list" id="districtList"><div class="empty">Loading districts...</div></div></div>
+        </div>
+      </section>
+      <section id="studentsView" class="hidden">
+        <div class="page-head"><div><h1>Student Management</h1><p>Approve payments and control student access.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" id="disconnectAllBtn">Disconnect All Students</button><button class="secondary" id="reconnectAllBtn">Reconnect All Students</button><button class="primary" id="exportBtn">⇩ &nbsp; Export for Excel</button></div></div>
+      </section>
+      <section id="gradeContentView" class="hidden">
+        <div class="page-head"><div><h1>Grade Content Management</h1><p>Add learning content for each student's registered Grade.</p></div></div>
+        <div class="card panel" style="margin-bottom:17px">
+          <div class="field"><label for="gradeContentGrade">Select Grade</label><select id="gradeContentGrade" style="max-width:260px;width:100%;padding:12px;border:1px solid var(--line);border-radius:11px;background:var(--page);color:var(--ink)"><option value="6">Grade 6</option><option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option><option value="10">Grade 10</option><option value="11">Grade 11</option></select></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px" id="gradeContentTabs">
+            <button class="primary" data-grade-type="live">📡 Live Classes</button><button class="secondary" data-grade-type="material">📚 Study Materials</button><button class="secondary" data-grade-type="class">📋 Class Details</button><button class="secondary" data-grade-type="video">🎬 Video Lessons</button>
+          </div>
+        </div>
+        <div class="card panel"><div class="panel-head"><div><h3 id="gradeContentListTitle">Grade 6 · Live Classes</h3><p>Only students registered in the selected Grade can see this content.</p></div><button class="primary" id="addGradeContentBtn">+ Add Content</button></div><div id="gradeContentList"><div class="empty">Loading...</div></div></div>
+      </section>
+      <section id="contentView" class="hidden">
+        <div class="page-head">
+          <div><h1>Website Content</h1><p>Manage Featured Classes and Video Learning Packs shown on the website.</p></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="primary" id="addClassBtn">+ Add Featured Class</button>
+            <button class="primary" id="addPackBtn" style="background:#17b889">+ Add Video Pack</button>
+          </div>
+        </div>
+        <div class="content-cols">
+          <div class="card panel">
+            <div class="panel-head"><div><h3>Featured Classes</h3><p>Shown in the "Featured Classes" section</p></div></div>
+            <div id="classContentList"><div class="empty">Loading...</div></div>
+          </div>
+          <div class="card panel">
+            <div class="panel-head"><div><h3>Video Learning Packs</h3><p>Shown in the "Video Learning Packs" section</p></div></div>
+            <div id="packContentList"><div class="empty">Loading...</div></div>
+          </div>
+        </div>
+      </section>
+      <div class="card table-panel" id="studentsTablePanel">
+        <div class="table-head"><div><h3 id="tableTitle">Recent Students</h3><p style="color:var(--muted);font-size:10px;margin:5px 0 0">Student registration records</p></div><div class="table-tools"><input id="searchInput" class="search" placeholder="Search name, email, WhatsApp..."/><button class="secondary" id="clearSearch">Clear</button></div></div>
+        <div class="table-scroll"><table><thead><tr><th>Student</th><th>WhatsApp</th><th>Grade</th><th>District</th><th>Registered</th><th>Payment</th><th>Access</th><th>Actions</th></tr></thead><tbody id="studentRows"><tr><td colspan="8" class="empty">Loading students...</td></tr></tbody></table></div><div class="table-foot" id="tableFoot">Loading records...</div>
+      </div>
+    </main>
+  </div>
+  <div id="modalHost"></div><div id="toast" class="toast"></div>
+
 <script>
-let token = '', allStudents = [], contentData = { classes: [], packs: [] }, gradeContentData = {live:[],material:[],class:[],video:[]}, activeGradeType = 'live';
+let token = '', allStudents = [], districts = [], contentData = { classes: [], packs: [] }, gradeContentData = {live:[],material:[],class:[],video:[]}, activeGradeType = 'live';
 const $ = id => document.getElementById(id);
 
 $('todayDate').textContent = '📅 ' + new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
@@ -22,7 +131,7 @@ window.toggleAdminPassword = () => {
 function setTheme() {
   document.body.classList.toggle('dark');
   localStorage.setItem('genz-admin-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-  setTimeout(drawChart, 50);
+  setTimeout(() => { if(!$('dashboardView').classList.contains('hidden')) drawChart(); }, 50);
 }
 if (localStorage.getItem('genz-admin-theme') === 'dark') document.body.classList.add('dark');
 $('themeBtn').onclick = setTheme;
@@ -56,13 +165,14 @@ async function loadDashboard() {
   try {
     const data = await window.callApi('adminGetDashboard', token);
     allStudents = data.students || [];
+    districts = data.districts || [];
     
     $('totalCount').textContent = data.total || 0;
-    $('districtCount').textContent = (data.districts || []).length;
+    $('districtCount').textContent = districts.length;
     $('recentCount').textContent = Math.min(5, data.total || 0);
     
-    renderDistricts(data.districts || []);
-    drawChart(data.districts || []);
+    renderDistricts();
+    drawChart();
     renderTable();
   } catch (err) {
     if (err.message.includes('session expired')) {
@@ -74,7 +184,7 @@ async function loadDashboard() {
   }
 }
 
-function renderDistricts(districts) {
+function renderDistricts() {
   const list = $('districtList');
   if (!districts.length) {
     list.innerHTML = '<div class="empty">No district data yet</div>';
@@ -83,66 +193,75 @@ function renderDistricts(districts) {
   const max = districts[0].count || 1;
   list.innerHTML = districts.slice(0, 6).map(d => `
     <div class="district-row">
-      <span>${d.name}</span>
+      <span title="${esc(d.name)}">${esc(d.name)}</span>
       <div class="bar"><i style="width:${Math.max(3, d.count/max*100)}%"></i></div>
       <b>${d.count}</b>
     </div>
   `).join('');
 }
 
-function drawChart(districts) {
+function drawChart() {
   const c = $('chart'), ctx = c.getContext('2d');
-  const rect = c.getBoundingClientRect();
-  c.width = rect.width; c.height = rect.height;
-  ctx.clearRect(0, 0, rect.width, rect.height);
+  if(!c || !ctx) return;
+  const rect = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  c.width = rect.width * dpr; c.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  const w = rect.width, h = rect.height;
+  ctx.clearRect(0, 0, w, h);
   
-  if (!districts.length) return;
-  
-  const top = districts.slice(0, 7);
-  const max = Math.max(1, ...top.map(x => x.count));
-  const barWidth = rect.width / (top.length * 1.5);
+  const top = districts.slice(0, 7), max = Math.max(1, ...top.map(x => x.count));
+  const pad = {l:12, r:10, t:15, b:30}, cw = w - pad.l - pad.r, ch = h - pad.t - pad.b;
+  ctx.font = '10px DM Sans'; ctx.textAlign = 'center';
   
   top.forEach((d, i) => {
-    const x = 20 + i * (barWidth * 1.5);
-    const h = (d.count / max) * (rect.height - 40);
-    const y = rect.height - 30 - h;
+    const slot = cw / Math.max(top.length, 1), bw = Math.min(34, slot * 0.48);
+    const x = pad.l + slot * i + slot / 2 - bw / 2, bh = (d.count / max) * (ch - 15);
+    const y = pad.t + ch - bh;
     
     ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--blue').trim() || '#2864f0';
-    ctx.beginPath();
-    ctx.roundRect(x, y, barWidth, h, 6);
-    ctx.fill();
+    roundRect(ctx, x, y, bw, bh, 7); ctx.fill();
     
     ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--muted').trim() || '#8490a7';
-    ctx.font = '10px DM Sans';
-    ctx.textAlign = 'center';
-    ctx.fillText(d.name.substring(0, 5), x + barWidth/2, rect.height - 10);
+    ctx.fillText(d.name.length > 9 ? d.name.slice(0, 8) + '…' : d.name, pad.l + slot * i + slot / 2, h - 8);
+    
+    ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--ink').trim() || '#17233d';
+    ctx.fillText(d.count, pad.l + slot * i + slot / 2, Math.max(10, y - 5));
   });
+  
+  if (!top.length) {
+    ctx.fillStyle = '#8490a7'; ctx.textAlign = 'center';
+    ctx.fillText('No registration data yet', w / 2, h / 2);
+  }
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath(); ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
 }
 
 function renderTable() {
   const q = $('searchInput').value.trim().toLowerCase();
-  const filtered = allStudents.filter(s => [s.firstName, s.lastName, s.email, s.whatsapp].join(' ').toLowerCase().includes(q));
+  const filtered = allStudents.filter(s => [s.firstName, s.lastName, s.email, s.whatsapp, s.district].join(' ').toLowerCase().includes(q));
+  const shown = filtered.slice(0, 100);
   
-  $('studentRows').innerHTML = filtered.length ? filtered.map(s => {
-    const pay = s.paymentStatus || 'Pending';
-    const access = s.accessStatus || 'Active';
+  $('studentRows').innerHTML = shown.length ? shown.map(s => {
+    const pay = s.paymentStatus || 'Pending', access = s.accessStatus || 'Active';
     const payAction = pay === 'Approved' ? 'Set Pending' : 'Approve Payment';
     const payValue = pay === 'Approved' ? 'Pending' : 'Approved';
+    const accessAction = access === 'Active' ? 'Disconnect' : 'Reconnect';
+    const accessValue = access === 'Active' ? 'Disconnected' : 'Active';
     
     return `<tr>
-      <td><div class="student-cell"><span class="student-avatar">${s.firstName.charAt(0).toUpperCase()}</span><span>${s.firstName} ${s.lastName}<span class="sub">${s.email}</span></span></div></td>
-      <td>${s.whatsapp}</td>
-      <td>${s.grade}</td>
-      <td>${s.district}</td>
-      <td>${s.timestamp}</td>
-      <td><span class="pill" style="${pay==='Approved'?'':'background:#fff4df;color:#a66a00'}">${pay}</span></td>
-      <td><span class="pill" style="${access==='Active'?'':'background:#fff0f1;color:#c43e50'}">${access}</span></td>
-      <td><div class="actions">
-        <button class="secondary" onclick="setStudentStatus(${s.id},'payment','${payValue}')">${payAction}</button>
-        <button class="tiny del" title="Delete" onclick="deleteStudent(${s.id})">×</button>
-      </div></td>
+      <td><div class="student-cell"><span class="student-avatar">${esc((s.firstName||'S').charAt(0).toUpperCase())}</span><span>${esc(s.firstName+' '+s.lastName)}<span class="sub">${esc(s.email)}</span></span></div></td>
+      <td>${esc(s.whatsapp)}</td><td>${esc(s.grade||'—')}</td><td>${esc(s.district)}</td><td>${esc(s.timestamp)}</td>
+      <td><span class="pill" style="${pay==='Approved'?'':'background:#fff4df;color:#a66a00'}">${esc(pay)}</span><div class="actions" style="margin-top:7px"><button class="secondary" onclick="setStudentStatus(${s.id},'payment','${payValue}')">${payAction}</button>${pay!=='Rejected'?`<button class="tiny del" title="Reject payment" onclick="setStudentStatus(${s.id},'payment','Rejected')">×</button>`:''}</div></td>
+      <td><span class="pill" style="${access==='Active'?'':'background:#fff0f1;color:#c43e50'}">${esc(access)}</span><div style="margin-top:7px"><button class="secondary" onclick="setStudentStatus(${s.id},'access','${accessValue}')">${accessAction}</button></div></td>
+      <td><div class="actions"><button class="tiny" title="View details" onclick="viewStudent(${s.id})">⌕</button><button class="tiny" title="Change password" onclick="changePassword(${s.id})">⚿</button><button class="tiny del" title="Delete student" onclick="deleteStudent(${s.id})">×</button></div></td>
     </tr>`;
-  }).join('') : '<tr><td colspan="8" class="empty">No students found.</td></tr>';
+  }).join('') : '<tr><td colspan="8" class="empty">No matching students found.</td></tr>';
+  
+  $('tableFoot').textContent = `Showing ${shown.length} of ${filtered.length} matching students${filtered.length > 100 ? ' (first 100 shown)' : ''}`;
 }
 
 window.setStudentStatus = async (id, type, value) => {
@@ -150,20 +269,72 @@ window.setStudentStatus = async (id, type, value) => {
     await window.callApi('adminSetStudentStatus', token, id, type, value);
     toast('Student status updated.');
     await loadDashboard();
-  } catch (e) {
-    toast(e.message);
-  }
+  } catch (e) { toast(e.message); }
 };
 
-window.deleteStudent = async (id) => {
-  if (!confirm('Are you sure you want to delete this student?')) return;
+function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+window.viewStudent = id => {
+  const s = allStudents.find(x => x.id === id); if (!s) return;
+  modal(`<h3>Student Details</h3><div class="detail-grid">${[['Full name',s.firstName+' '+s.lastName],['Email address',s.email],['WhatsApp number',s.whatsapp],['Grade',s.grade],['District',s.district],['Address',s.address],['Date of birth',s.dateOfBirth],['Registered at',s.timestamp]].map(x => `<div class="detail-item"><small>${esc(x[0])}</small><b>${esc(x[1]||'—')}</b></div>`).join('')}</div><div class="modal-actions"><button class="secondary" onclick="closeModal()">Close</button></div>`);
+};
+
+window.changePassword = id => {
+  modal(`<h3>Change Student Password</h3><p style="font-size:12px;color:var(--muted)">Set a new password for this student.</p><div class="field"><label>New password (8–128 characters)</label><input id="newStudentPassword" type="password" minlength="8" maxlength="128" placeholder="Enter new password"></div><div class="modal-actions"><button class="secondary" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveStudentPassword(${id})">Update password</button></div>`);
+};
+
+window.saveStudentPassword = async id => {
+  const pass = $('newStudentPassword').value;
+  if (pass.length < 8) { toast('Password must be at least 8 characters.'); return; }
+  try {
+    await window.callApi('adminChangeStudentPassword', token, id, pass);
+    closeModal(); toast('Student password updated.');
+  } catch (e) { toast(e.message); }
+};
+
+window.deleteStudent = id => {
+  const s = allStudents.find(x => x.id === id); if (!s) return;
+  modal(`<h3>Delete Student?</h3><p style="font-size:12px;color:var(--muted)">Are you sure you want to delete <b>${esc(s.firstName+' '+s.lastName)}</b>? This action cannot be undone.</p><div class="modal-actions"><button class="secondary" onclick="closeModal()">Cancel</button><button class="primary" style="background:#e65368" onclick="confirmDelete(${id})">Delete student</button></div>`);
+};
+
+window.confirmDelete = async id => {
   try {
     await window.callApi('adminDeleteStudent', token, id);
-    toast('Student deleted.');
-    await loadDashboard();
-  } catch (e) {
-    toast(e.message);
-  }
+    closeModal(); toast('Student deleted.'); await loadDashboard();
+  } catch (e) { toast(e.message); }
+};
+
+function modal(html) { $('modalHost').innerHTML = `<div class="modal-back" onclick="if(event.target===this)closeModal()"><div class="modal">${html}</div></div>`; }
+window.closeModal = () => { $('modalHost').innerHTML = ''; };
+
+$('searchInput').addEventListener('input', renderTable);
+$('clearSearch').onclick = () => { $('searchInput').value = ''; renderTable(); };
+
+$('disconnectAllBtn').onclick = async () => {
+  if (!confirm('Disconnect access for ALL students?')) return;
+  try {
+    const r = await window.callApi('adminSetAllStudentAccess', token, 'Disconnected');
+    toast(r.count + ' students disconnected.'); await loadDashboard();
+  } catch (e) { toast(e.message); }
+};
+
+$('reconnectAllBtn').onclick = async () => {
+  if (!confirm('Reconnect access for ALL students? Payment approval is not changed.')) return;
+  try {
+    const r = await window.callApi('adminSetAllStudentAccess', token, 'Active');
+    toast(r.count + ' students reconnected.'); await loadDashboard();
+  } catch (e) { toast(e.message); }
+};
+
+$('refreshBtn').onclick = () => { loadDashboard(); loadContent(); };
+
+$('exportBtn').onclick = () => {
+  const headers = ['First Name','Last Name','WhatsApp Number','District','Address','Date of Birth','Email Address','Registration Timestamp'];
+  const rows = allStudents.map(s => [s.firstName,s.lastName,s.whatsapp,s.district,s.address,s.dateOfBirth,s.email,s.timestamp]);
+  const csv = [headers,...rows].map(row => row.map(v => '"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const blob = new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'GEN-Z-SCIENCE-Students.csv';
+  a.click(); URL.revokeObjectURL(a.href); toast('Student list exported.');
 };
 
 // --- 3. NAVIGATION ---
@@ -177,71 +348,25 @@ document.querySelectorAll('.nav-btn[data-view]').forEach(b => b.onclick = () => 
   
   $('crumbText').textContent = view === 'dashboard' ? 'Dashboard' : view === 'students' ? 'Students' : view === 'gradeContent' ? 'Grade Content' : 'Website Content';
   $('tableTitle').textContent = view === 'dashboard' ? 'Recent Students' : 'All Students';
-  
   document.querySelectorAll('.nav-btn[data-view]').forEach(x => x.classList.toggle('active', x === b));
   $('sidebar').classList.remove('open');
   
+  if (view === 'students') $('searchInput').focus();
   if (view === 'content') loadContent();
   if (view === 'gradeContent') loadGradeContent();
 });
 
-$('searchInput').addEventListener('input', renderTable);
-$('clearSearch').onclick = () => { $('searchInput').value = ''; renderTable(); };
-$('refreshBtn').onclick = () => { loadDashboard(); loadContent(); };
-
 async function logout(callApi = true) {
-  if (callApi && token) {
-    try { await window.callApi('adminLogout', token); } catch (e) {}
-  }
-  token = '';
-  allStudents = [];
-  $('app').classList.add('hidden');
-  $('loginScreen').classList.remove('hidden');
-  $('password').value = '';
+  if (callApi && token) { try { await window.callApi('adminLogout', token); } catch (e) {} }
+  token = ''; allStudents = []; contentData = { classes: [], packs: [] };
+  $('app').classList.add('hidden'); $('loginScreen').classList.remove('hidden'); $('password').value = '';
 }
 $('logoutBtn').onclick = () => logout();
+window.addEventListener('resize', () => { if (!$('dashboardView').classList.contains('hidden')) drawChart(); });
 
-// --- 4. WEBSITE CONTENT MANAGEMENT (Classes & Packs) ---
-async function loadContent() {
-  try {
-    contentData = await window.callApi('adminGetWebsiteContent', token);
-    renderContentLists();
-  } catch (e) {
-    toast(e.message);
-  }
-}
+// --- 4. GRADE CONTENT ---
+const gradeTypeNames = { live: 'Live Classes', material: 'Study Materials', class: 'Class Details', video: 'Video Lessons' };
 
-function renderContentLists() {
-  const cls = $('classContentList'), pk = $('packContentList');
-  cls.innerHTML = contentData.classes.length ? contentData.classes.map(c => contentItemHtml(c, 'class')).join('') : '<div class="empty">No featured classes yet.</div>';
-  pk.innerHTML = contentData.packs.length ? contentData.packs.map(c => contentItemHtml(c, 'pack')).join('') : '<div class="empty">No video packs yet.</div>';
-}
-
-function contentItemHtml(item, type) {
-  const thumb = item.imageUrl ? `<img src="${item.imageUrl}" class="content-thumb" alt="">` : `<div class="content-thumb">🖼</div>`;
-  return `<div class="content-item">
-    ${thumb}
-    <div class="content-body">
-      <b>${item.title}</b>
-      <div class="desc">${item.description}</div>
-      ${type === 'pack' ? `<div class="price">LKR ${Number(item.price).toLocaleString()}</div>` : ''}
-    </div>
-    <div class="actions">
-      <button class="tiny del" onclick="deleteContent('${item.id}')">×</button>
-    </div>
-  </div>`;
-}
-
-window.deleteContent = async (id) => {
-  if (!confirm('Delete this content?')) return;
-  try {
-    await window.callApi('adminDeleteWebsiteContent', token, id);
-    toast('Content deleted.');
-    await loadContent();
-  } catch (e) { toast(e.message); }
-};
-
-// --- 5. GRADE CONTENT MANAGEMENT ---
 async function loadGradeContent() {
   try {
     gradeContentData = await window.callApi('adminGetGradeContent', token);
@@ -252,36 +377,203 @@ async function loadGradeContent() {
 function renderGradeContent() {
   const grade = $('gradeContentGrade').value;
   const items = (gradeContentData[activeGradeType] || []).filter(x => String(x.grade) === String(grade));
-  
-  $('gradeContentListTitle').textContent = 'Grade ' + grade + ' · ' + activeGradeType;
+  $('gradeContentListTitle').textContent = 'Grade ' + grade + ' · ' + gradeTypeNames[activeGradeType];
   document.querySelectorAll('[data-grade-type]').forEach(b => {
     b.className = b.dataset.gradeType === activeGradeType ? 'primary' : 'secondary';
   });
   
   $('gradeContentList').innerHTML = items.length ? items.map(item => `
-    <div class="content-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)">
-      <div><b>${item.title}</b><p style="font-size:12px;color:var(--muted)">${item.description}</p></div>
-      <div class="actions"><button class="tiny del" onclick="deleteGradeContent('${item.id}')">×</button></div>
+    <div class="content-item" style="display:flex;justify-content:space-between;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line)">
+      <div style="min-width:0"><b>${esc(item.title)}</b><p style="font-size:12px;color:var(--muted);white-space:pre-wrap;margin:6px 0">${esc(item.description||'')}</p>${item.url?`<a href="${esc(item.url)}" target="_blank" rel="noopener">${activeGradeType==='material'?'Download PDF':'Open link'}</a>`:''}</div>
+      <div class="actions"><button class="secondary" onclick="editGradeContent('${esc(item.id)}')">Edit</button><button class="tiny del" onclick="deleteGradeContent('${esc(item.id)}')">×</button></div>
     </div>
-  `).join('') : '<div class="empty">No content yet.</div>';
+  `).join('') : '<div class="empty">No ' + gradeTypeNames[activeGradeType] + ' added for Grade ' + grade + ' yet.</div>';
 }
 
 $('gradeContentGrade').addEventListener('change', renderGradeContent);
 document.querySelectorAll('[data-grade-type]').forEach(b => b.addEventListener('click', () => {
-  activeGradeType = b.dataset.gradeType;
-  renderGradeContent();
+  activeGradeType = b.dataset.gradeType; renderGradeContent();
 }));
+$('addGradeContentBtn').onclick = () => openGradeContentModal(null);
 
-window.deleteGradeContent = async (id) => {
+window.editGradeContent = id => {
+  const item = Object.values(gradeContentData).flat().find(x => x.id === id);
+  if (item) { activeGradeType = item.type; renderGradeContent(); openGradeContentModal(item); }
+};
+
+function openGradeContentModal(item) {
+  const type = activeGradeType, grade = $('gradeContentGrade').value;
+  modal(`<h3>${item?'Edit':'Add'} ${gradeTypeNames[type]} · Grade ${grade}</h3>
+    <div class="field"><label>Title *</label><input id="gcTitle" maxlength="120" value="${item?esc(item.title):''}" placeholder="Enter title"></div>
+    <div class="field"><label>Description / Details</label><textarea id="gcDescription" maxlength="1500" style="min-height:100px;resize:vertical" placeholder="Enter description or class details">${item?esc(item.description):''}</textarea></div>
+    ${type==='live'||type==='video'?`<div class="field"><label>Zoom / YouTube Link *</label><input id="gcUrl" type="url" value="${item?esc(item.url):''}" placeholder="https://..."></div>`:''}
+    ${type==='material'?`<div class="field"><label>Upload PDF ${item&&item.fileId?'(optional)':'*'}</label><input id="gcPdf" type="file" accept="application/pdf,.pdf" style="width:100%;padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--page)"><small style="color:var(--muted)">PDF only · Max 8 MB</small></div>`:''}
+    <div class="modal-actions"><button class="secondary" onclick="closeModal()">Cancel</button><button class="primary" id="gcSaveBtn" onclick="saveGradeContent('${item?esc(item.id):''}','${type}')">Save</button></div>`);
+}
+
+window.saveGradeContent = async (id, type) => {
+  const title = $('gcTitle').value.trim(), description = $('gcDescription').value.trim();
+  if (!title) { toast('Enter a title.'); return; }
+  const data = { id: id||'', grade: $('gradeContentGrade').value, type: type, title: title, description: description };
+  
+  if (type === 'live' || type === 'video') {
+    data.url = $('gcUrl').value.trim();
+    if (!data.url) { toast('Enter a link.'); return; }
+  }
+  
+  if (type === 'material') {
+    const file = $('gcPdf').files[0];
+    const old = Object.values(gradeContentData).flat().find(x => x.id === id);
+    if (old) { data.fileId = old.fileId; data.url = old.url; }
+    
+    if (file) {
+      if (file.type !== 'application/pdf' || file.size > 8*1024*1024) { toast('Choose a PDF smaller than 8 MB.'); return; }
+      data.fileName = file.name; data.fileMimeType = file.type;
+      data.fileBase64 = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result).split(',')[1]);
+        reader.readAsDataURL(file);
+      });
+    } else if (!data.fileId) {
+      toast('Please upload a PDF file.'); return;
+    }
+  }
+  
+  const btn = $('gcSaveBtn'); btn.disabled = true; btn.textContent = 'Saving...';
+  try {
+    await window.callApi('adminSaveGradeContent', token, data);
+    closeModal(); toast('Grade content saved.'); await loadGradeContent();
+  } catch (e) { toast(e.message); btn.disabled = false; btn.textContent = 'Save'; }
+};
+
+window.deleteGradeContent = async id => {
   if (!confirm('Delete this content?')) return;
   try {
     await window.callApi('adminDeleteGradeContent', token, id);
-    toast('Content deleted.');
-    await loadGradeContent();
+    toast('Content deleted.'); await loadGradeContent();
   } catch (e) { toast(e.message); }
 };
 
-window.addEventListener('resize', () => {
-  if (!$('dashboardView').classList.contains('hidden')) drawChart();
-});
+// --- 5. WEBSITE CONTENT ---
+async function loadContent() {
+  try {
+    contentData = await window.callApi('adminGetWebsiteContent', token);
+    renderContentLists();
+  } catch (e) { toast(e.message); }
+}
+
+function renderContentLists() {
+  const cls = $('classContentList'), pk = $('packContentList');
+  cls.innerHTML = contentData.classes.length ? contentData.classes.map(c => contentItemHtml(c, 'class')).join('') : '<div class="empty">No featured classes yet.</div>';
+  pk.innerHTML = contentData.packs.length ? contentData.packs.map(c => contentItemHtml(c, 'pack')).join('') : '<div class="empty">No video packs yet.</div>';
+}
+
+function contentItemHtml(item, type) {
+  const thumb = item.imageUrl ? `<img src="${esc(item.imageUrl)}" class="content-thumb" alt="">` : `<div class="content-thumb">🖼</div>`;
+  return `<div class="content-item">
+    ${thumb}
+    <div class="content-body">
+      <b>${esc(item.title)}</b>
+      <div class="desc" title="${esc(item.description)}">${esc(item.description)}</div>
+      ${type === 'pack' ? `<div class="price">LKR ${esc(formatPrice(item.price))}</div>` : ''}
+    </div>
+    <div class="actions">
+      <button class="tiny" title="Edit" onclick="editContent('${esc(item.id)}')">✎</button>
+      <button class="tiny del" title="Delete" onclick="deleteContent('${esc(item.id)}')">×</button>
+    </div>
+  </div>`;
+}
+
+function formatPrice(p) { const n = Number(p); return isNaN(n) ? String(p||'') : n.toLocaleString('en-LK'); }
+
+window.editContent = id => {
+  const item = [...contentData.classes, ...contentData.packs].find(x => x.id === id);
+  if (item) openContentModal(item);
+};
+
+window.deleteContent = id => {
+  const item = [...contentData.classes, ...contentData.packs].find(x => x.id === id);
+  if (!item) return;
+  modal(`<h3>Delete Content?</h3><p style="font-size:12px;color:var(--muted)">Delete <b>${esc(item.title)}</b> from the website? This cannot be undone.</p>
+    <div class="modal-actions"><button class="secondary" onclick="closeModal()">Cancel</button>
+    <button class="primary" style="background:#e65368" onclick="confirmDeleteContent('${esc(id)}')">Delete</button></div>`);
+};
+
+window.confirmDeleteContent = async id => {
+  try {
+    await window.callApi('adminDeleteWebsiteContent', token, id);
+    closeModal(); toast('Content deleted.'); await loadContent();
+  } catch (e) { toast(e.message); }
+};
+
+function openContentModal(item) {
+  const isEdit = !!item;
+  const type = isEdit ? item.type : (window._contentType || 'class');
+  const title = isEdit ? esc(item.title) : '';
+  const desc = isEdit ? esc(item.description) : '';
+  const price = isEdit && item.price ? esc(item.price) : '';
+  const imageUrl = isEdit ? esc(item.imageUrl) : '';
+  const buttonUrl = isEdit && item.buttonUrl ? esc(item.buttonUrl) : '';
+  
+  modal(`<h3>${isEdit?'Edit':'Add'} ${type === 'pack' ? 'Video Learning Pack' : 'Featured Class'}</h3>
+    <div class="field"><label>Title *</label><input id="cTitle" value="${title}" maxlength="100" placeholder="e.g. Complete Science Video Pack"></div>
+    <div class="field"><label>Description *</label><textarea id="cDesc" maxlength="1200" style="min-height:90px;resize:vertical" placeholder="Short description">${desc}</textarea></div>
+    ${type === 'pack' ? `<div class="field"><label>Price (LKR) *</label><input id="cPrice" value="${price}" placeholder="2500" inputmode="decimal"></div>` : ''}
+    <div class="field"><label>Image *</label>
+      <input type="file" id="cImageFile" accept="image/png,image/jpeg,image/webp,image/gif" style="width:100%;padding:9px;border-radius:11px;border:1px solid var(--line);background:var(--page)">
+      <input id="cImageUrl" value="${imageUrl}" placeholder="Or paste an https:// image URL" style="margin-top:8px">
+      <div id="cImagePreview" style="margin-top:10px">${imageUrl?`<img src="${imageUrl}" style="max-height:100px;border-radius:8px">`:''}</div>
+    </div>
+    ${type === 'class' ? `<div class="field"><label>Button Link (optional)</label><input id="cButtonUrl" value="${buttonUrl}" placeholder="https://... or leave blank"></div>` : ''}
+    <div class="modal-actions"><button class="secondary" onclick="closeModal()">Cancel</button>
+    <button class="primary" id="cSaveBtn" onclick="saveContent('${isEdit?esc(item.id):''}','${type}')">Save</button></div>`);
+    
+  const fileInput = $('cImageFile');
+  if (fileInput) fileInput.onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const reader = new FileReader();
+    reader.onload = () => { $('cImageUrl').value = ''; $('cImagePreview').innerHTML = `<img src="${reader.result}" style="max-height:100px;border-radius:8px">`; };
+    reader.readAsDataURL(f);
+  };
+}
+
+window.saveContent = async (id, type) => {
+  const title = $('cTitle').value.trim();
+  const description = $('cDesc').value.trim();
+  if (!title || !description) { toast('Title and description are required.'); return; }
+  
+  const data = { id: id||'', type: type, title: title, description: description };
+  if (type === 'pack') {
+    data.price = $('cPrice').value.trim();
+    if (!data.price) { toast('Enter a valid price.'); return; }
+  } else {
+    data.buttonUrl = $('cButtonUrl').value.trim();
+  }
+  
+  const fileInput = $('cImageFile');
+  const file = fileInput && fileInput.files[0];
+  const imageUrl = $('cImageUrl').value.trim();
+  
+  if (file) {
+    if (file.size > 3*1024*1024) { toast('Image must be smaller than 3 MB.'); return; }
+    const b64 = await new Promise(res => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1]); r.readAsDataURL(file); });
+    data.imageBase64 = b64; data.imageMimeType = file.type; data.imageFileName = file.name;
+  } else if (imageUrl) {
+    data.imageUrl = imageUrl;
+  } else if (!id) {
+    toast('Upload an image or paste an image URL.'); return;
+  }
+  
+  $('cSaveBtn').disabled = true; $('cSaveBtn').textContent = 'Saving...';
+  try {
+    await window.callApi('adminSaveWebsiteContent', token, data);
+    closeModal(); toast('Content saved.'); await loadContent();
+  } catch (e) { toast(e.message); $('cSaveBtn').disabled = false; $('cSaveBtn').textContent = 'Save'; }
+};
+
+$('addClassBtn').onclick = () => { window._contentType = 'class'; openContentModal(null); };
+$('addPackBtn').onclick = () => { window._contentType = 'pack'; openContentModal(null); };
+
 </script>
+</body>
+</html>
