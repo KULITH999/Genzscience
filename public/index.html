@@ -706,7 +706,57 @@ window.addEventListener('load', function() {
 // API Config Load
 document.write('<script src="config.js"><\/script>');
 
+
 const $ = id => document.getElementById(id);
+
+// --- Registration Date of Birth dropdown setup ---
+function initializeBirthDateFields() {
+  const daySelect = $('regBirthDay');
+  const monthSelect = $('regBirthMonth');
+  const yearSelect = $('regBirthYear');
+  if (!daySelect || !monthSelect || !yearSelect) return;
+
+  // Populate years from the current year back 100 years.
+  if (yearSelect.options.length <= 1) {
+    const currentYear = new Date().getFullYear();
+    const yearOptions = document.createDocumentFragment();
+    for (let year = currentYear; year >= currentYear - 100; year--) {
+      const option = document.createElement('option');
+      option.value = String(year);
+      option.textContent = String(year);
+      yearOptions.appendChild(option);
+    }
+    yearSelect.appendChild(yearOptions);
+  }
+
+  // Populate days and keep the list valid for the selected month/year.
+  function updateBirthDays() {
+    const previousDay = daySelect.value;
+    const month = Number(monthSelect.value);
+    const year = Number(yearSelect.value);
+    const daysInMonth = month
+      ? new Date(year || 2000, month, 0).getDate()
+      : 31;
+
+    daySelect.innerHTML = '<option value="">Day</option>';
+    for (let day = 1; day <= daysInMonth; day++) {
+      const option = document.createElement('option');
+      option.value = String(day);
+      option.textContent = String(day);
+      daySelect.appendChild(option);
+    }
+
+    if (previousDay && Number(previousDay) <= daysInMonth) {
+      daySelect.value = previousDay;
+    }
+  }
+
+  if (daySelect.options.length <= 1) updateBirthDays();
+
+  monthSelect.addEventListener('change', updateBirthDays);
+  yearSelect.addEventListener('change', updateBirthDays);
+}
+
 
 // --- UI Navigation & Animations (Original Code) ---
 function toggleMenu() { $('navLinks').classList.toggle('active'); }
@@ -964,6 +1014,7 @@ async function loadWebsiteContent() {
 }
 
 window.addEventListener('load', () => {
+  initializeBirthDateFields();
   loadWebsiteContent();
   // Check hash routing
   const hash = window.location.hash;
