@@ -643,6 +643,20 @@
 
 <!-- මේක ඔයාගේ index.html එකේ අන්තිමට තියෙන <script> ටැග් එක වෙනුවට දාන්න -->
 <script>
+  // --- 1. Intro Screen Handler (අනිවාර්යයෙන්ම තියෙන්න ඕන) ---
+window.addEventListener('load', function() {
+  // තත්පර 6කින් intro එක අයින් කරන්න
+  setTimeout(function() {
+    const intro = document.getElementById('introScreen');
+    if (intro) {
+      intro.style.transition = 'opacity 0.8s ease';
+      intro.style.opacity = '0';
+      setTimeout(() => {
+        intro.style.display = 'none'; // සම්පූර්ණයෙන්ම හංගන්න
+      }, 800);
+    }
+  }, 6000); // මෙතන 6000 කියන්නේ තත්පර 6ක්
+});
 // API Config Load
 document.write('<script src="config.js"><\/script>');
 
