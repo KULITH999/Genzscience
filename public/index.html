@@ -155,7 +155,7 @@
       overflow: hidden;
       box-shadow: 22px 24px 48px rgba(8, 125, 72, 0.22), -6px -6px 20px rgba(0, 200, 120, 0.1);
       transition: transform 0.22s ease-out, box-shadow 0.35s ease;
-      transform: perspective(1000px) rotateX(-8deg) rotateY(12deg) scale3d(1, 1, 1);
+      transform: perspective(1000px) rotateX(10deg) rotateY(-12deg) scale3d(1, 1, 1);
       transform-style: preserve-3d;
       will-change: transform;
       cursor: pointer;
@@ -1324,8 +1324,8 @@ function initializeHeroImageMouseEffect() {
   const heroBox = document.querySelector('.hero-image');
   if (!heroBox) return;
   const heroImg = heroBox.querySelector('img');
-  const baseRotateX = -8;
-  const baseRotateY = 12;
+  const baseRotateX = 10;
+  const baseRotateY = -12;
 
   heroBox.addEventListener('mousemove', (e) => {
     const rect = heroBox.getBoundingClientRect();
