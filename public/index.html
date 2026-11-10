@@ -153,9 +153,9 @@
       padding: 6px;
       border-radius: 26px;
       overflow: hidden;
-      box-shadow: 0 18px 45px rgba(8, 125, 72, 0.18);
-      transition: transform 0.2s ease-out, box-shadow 0.35s ease;
-      transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+      box-shadow: 22px 24px 48px rgba(8, 125, 72, 0.22), -6px -6px 20px rgba(0, 200, 120, 0.1);
+      transition: transform 0.22s ease-out, box-shadow 0.35s ease;
+      transform: perspective(1000px) rotateX(-8deg) rotateY(12deg) scale3d(1, 1, 1);
       transform-style: preserve-3d;
       will-change: transform;
       cursor: pointer;
@@ -1319,11 +1319,13 @@ async function loadWebsiteContent() {
   }
 }
 
-// --- Hero Image Mouse 3D Tilt Effect ---
+// --- Hero Image Mouse 3D Tilt Effect (Default Top-Left Pushed Inwards) ---
 function initializeHeroImageMouseEffect() {
   const heroBox = document.querySelector('.hero-image');
   if (!heroBox) return;
   const heroImg = heroBox.querySelector('img');
+  const baseRotateX = -8;
+  const baseRotateY = 12;
 
   heroBox.addEventListener('mousemove', (e) => {
     const rect = heroBox.getBoundingClientRect();
@@ -1332,8 +1334,8 @@ function initializeHeroImageMouseEffect() {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rotateX = ((centerY - y) / centerY) * 12;
-    const rotateY = ((x - centerX) / centerX) * 12;
+    const rotateX = baseRotateX + ((centerY - y) / centerY) * 10;
+    const rotateY = baseRotateY + ((x - centerX) / centerX) * 10;
 
     heroBox.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.03, 1.03, 1.03)`;
     if (heroImg) {
@@ -1344,7 +1346,7 @@ function initializeHeroImageMouseEffect() {
   });
 
   heroBox.addEventListener('mouseleave', () => {
-    heroBox.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    heroBox.style.transform = `perspective(1000px) rotateX(${baseRotateX}deg) rotateY(${baseRotateY}deg) scale3d(1, 1, 1)`;
     if (heroImg) {
       heroImg.style.transform = 'translate3d(0px, 0px, 20px) scale(1)';
     }
