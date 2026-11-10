@@ -430,6 +430,159 @@
     .student-empty{padding:35px 15px;text-align:center;color:#829388;background:#f8fcf9;border-radius:14px}
     .student-dash-status{color:#6a8172;font-size:13px;margin:10px 0}
     @media(max-width:700px){#studentDashboard{padding:20px 5% 45px}.student-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.student-panel{padding:18px}.student-dash-hero{padding:23px}}
+
+    /* ALL OTHER BUTTONS - ANIMATED FRAME & BACKGROUND LIKE LOGIN & REGISTER */
+    .primary-btn,
+    .outline-btn,
+    .learn-btn,
+    .buy-btn,
+    .contact-submit,
+    .registration-screen .reg-back,
+    .registration-screen .reg-submit,
+    .grade-back,
+    .student-dash-logout,
+    .student-content-link {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      border: none !important;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease !important;
+    }
+
+    /* LIGHT STYLE BUTTONS (Like Login Button) */
+    .outline-btn,
+    .registration-screen .reg-back,
+    .grade-back,
+    .student-dash-logout {
+      color: var(--green) !important;
+      box-shadow: 0 4px 14px rgba(8, 125, 72, 0.14);
+    }
+
+    .outline-btn::before,
+    .registration-screen .reg-back::before,
+    .grade-back::before,
+    .student-dash-logout::before {
+      content: "";
+      position: absolute;
+      inset: -150%;
+      background: conic-gradient(
+        from 0deg,
+        var(--green),
+        var(--neon),
+        #b5ffd0,
+        var(--neon),
+        var(--green)
+      );
+      z-index: -2;
+      animation: navBtnFrameSpin 3.5s linear infinite;
+    }
+
+    .outline-btn::after,
+    .registration-screen .reg-back::after,
+    .grade-back::after,
+    .student-dash-logout::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: inherit;
+      background: linear-gradient(120deg, #ffffff 0%, #e6faee 50%, #ffffff 100%);
+      background-size: 200% 200%;
+      z-index: -1;
+      animation: navBtnBgMove 4s ease infinite;
+      transition: background 0.3s ease;
+    }
+
+    /* FILLED GREEN STYLE BUTTONS (Like Register Button) */
+    .primary-btn,
+    .learn-btn,
+    .buy-btn,
+    .contact-submit,
+    .registration-screen .reg-submit,
+    .student-content-link {
+      color: #ffffff !important;
+      box-shadow: 0 5px 16px rgba(0, 200, 120, 0.28);
+    }
+
+    .primary-btn::before,
+    .learn-btn::before,
+    .buy-btn::before,
+    .contact-submit::before,
+    .registration-screen .reg-submit::before,
+    .student-content-link::before {
+      content: "";
+      position: absolute;
+      inset: -150%;
+      background: conic-gradient(
+        from 0deg,
+        #087d48,
+        #ffffff,
+        #00c878,
+        #a5efbd,
+        #087d48
+      );
+      z-index: -2;
+      animation: navBtnFrameSpin 3.5s linear infinite;
+    }
+
+    .primary-btn::after,
+    .learn-btn::after,
+    .buy-btn::after,
+    .contact-submit::after,
+    .registration-screen .reg-submit::after,
+    .student-content-link::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: inherit;
+      background: linear-gradient(120deg, #087d48, #00c878, #075b36, #00c878);
+      background-size: 250% 250%;
+      z-index: -1;
+      animation: navBtnBgMove 3.5s ease infinite;
+      transition: background 0.3s ease;
+    }
+
+    /* HOVER & ACTIVE EFFECTS FOR ALL ANIMATED BUTTONS */
+    .primary-btn:hover,
+    .outline-btn:hover,
+    .learn-btn:hover,
+    .buy-btn:hover,
+    .contact-submit:hover,
+    .registration-screen .reg-back:hover,
+    .registration-screen .reg-submit:hover,
+    .grade-back:hover,
+    .student-dash-logout:hover,
+    .student-content-link:hover {
+      color: #ffffff !important;
+      transform: translateY(-2px) scale(1.03) !important;
+      box-shadow: 0 8px 22px rgba(0, 200, 120, 0.38) !important;
+    }
+
+    .primary-btn:hover::after,
+    .outline-btn:hover::after,
+    .learn-btn:hover::after,
+    .buy-btn:hover::after,
+    .contact-submit:hover::after,
+    .registration-screen .reg-back:hover::after,
+    .registration-screen .reg-submit:hover::after,
+    .grade-back:hover::after,
+    .student-dash-logout:hover::after,
+    .student-content-link:hover::after {
+      background: linear-gradient(120deg, #00c878, #087d48, #00e68a);
+      background-size: 200% 200%;
+    }
+
+    .primary-btn:active,
+    .outline-btn:active,
+    .learn-btn:active,
+    .buy-btn:active,
+    .contact-submit:active,
+    .registration-screen .reg-back:active,
+    .registration-screen .reg-submit:active,
+    .grade-back:active,
+    .student-dash-logout:active,
+    .student-content-link:active {
+      transform: translateY(0) scale(0.97) !important;
+    }
   </style>
 </head>
 
