@@ -17,6 +17,7 @@ function doPost(e) {
       case 'studentGetGradeContent': result = studentGetGradeContent(args[0]); break;
       
       case 'adminLogin': result = adminLogin(args[0], args[1]); break;
+      case 'adminChangeCredentials': result = adminChangeCredentials(args[0], args[1], args[2], args[3]); break;
       case 'adminLogout': result = adminLogout(args[0]); break;
       case 'adminGetDashboard': result = adminGetDashboard(args[0]); break;
       case 'adminSetStudentStatus': result = adminSetStudentStatus(args[0], args[1], args[2], args[3]); break;
@@ -521,6 +522,40 @@ function adminLogin(username, password) {
   var token = Utilities.getUuid() + Utilities.getUuid();
   CacheService.getScriptCache().put('GENZ_ADMIN_SESSION_' + token, '1', 21600);
   return { success: true, token: token, expiresIn: 21600 };
+}
+
+// Change admin username and password. The current password is always required.
+function adminChangeCredentials(token, currentPassword, newUsername, newPassword) {
+  requireAdmin_(token);
+  currentPassword = String(currentPassword || '');
+  newUsername = String(newUsername || '').trim();
+  newPassword = String(newPassword || '');
+
+  var props = PropertiesService.getScriptProperties();
+  var savedUser = String(props.getProperty('GENZ_ADMIN_USERNAME') || '');
+  var salt = String(props.getProperty('GENZ_ADMIN_SALT') || '');
+  var savedHash = String(props.getProperty('GENZ_ADMIN_PASSWORD_HASH') || '');
+
+  if (!salt || !savedHash || !constantTimeEquals_(hashStudentPassword_(currentPassword, salt), savedHash)) {
+    throw new Error('Current password is incorrect.');
+  }
+  if (newUsername.length < 3 || newUsername.length > 60) {
+    throw new Error('Username must contain 3 to 60 characters.');
+  }
+  if (newPassword.length < 10 || newPassword.length > 128) {
+    throw new Error('New password must contain 10 to 128 characters.');
+  }
+
+  var newSalt = Utilities.getUuid() + Utilities.getUuid();
+  props.setProperties({
+    GENZ_ADMIN_USERNAME: newUsername,
+    GENZ_ADMIN_SALT: newSalt,
+    GENZ_ADMIN_PASSWORD_HASH: hashStudentPassword_(newPassword, newSalt)
+  });
+
+  // Invalidate the current session so the new credentials must be used next time.
+  CacheService.getScriptCache().remove('GENZ_ADMIN_SESSION_' + String(token));
+  return { success: true, message: 'Admin username and password updated. Please sign in again.' };
 }
 
 function adminLogout(token) {
