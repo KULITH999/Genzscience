@@ -1,6 +1,6 @@
 // Paste your Google Apps Script Web App URL here (Deploy > New deployment > Web app)
 // Example: https://script.google.com/macros/s/AKfycb.../exec
-window.API_URL = 'https://script.google.com/macros/s/AKfycby-Dv_KAYtopXKNmHwy7WMEZtac8ZZdVRusDONF4SIce4pg9YfBC0DjtztNsj0rxMQb/exec';
+window.API_URL = 'https://script.google.com/macros/s/AKfycbwpwatz-Fwpe1iM-zfHj4Cfb6H2c-4lVdH2PK2T62JeEyGvFMo0BhYB0S63xUATPbU/exec';
 
 // Universal API helper
 window.callApi = async function (action, ...args) {
