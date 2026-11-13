@@ -51,6 +51,8 @@
       <div class="nav-label">WEBSITE</div>
       <button class="nav-btn" data-view="content"><span class="ico">▤</span>Website Content</button>
       <button class="nav-btn" data-view="gradeContent"><span class="ico">🎓</span>Grade Content</button>
+      <div class="nav-label">SECURITY</div>
+      <button class="nav-btn" data-view="security"><span class="ico">🔐</span>Admin Credentials</button>
       <div class="sidebar-bottom"><button class="nav-btn" id="themeSide"><span class="ico">◐</span>Switch Theme</button><button class="nav-btn" id="logoutBtn"><span class="ico">⇥</span>Sign Out</button><div class="admin-mini"><div class="avatar">A</div><div><b>Administrator</b><small>System access</small></div></div></div>
     </aside>
     <main class="main">
@@ -104,7 +106,21 @@
         <div class="table-head"><div><h3 id="tableTitle">Recent Students</h3><p style="color:var(--muted);font-size:10px;margin:5px 0 0">Student registration records</p></div><div class="table-tools"><input id="searchInput" class="search" placeholder="Search name, email, WhatsApp..."/><button class="secondary" id="clearSearch">Clear</button></div></div>
         <div class="table-scroll"><table><thead><tr><th>Student</th><th>WhatsApp</th><th>Grade</th><th>District</th><th>Registered</th><th>Payment</th><th>Access</th><th>Actions</th></tr></thead><tbody id="studentRows"><tr><td colspan="8" class="empty">Loading students...</td></tr></tbody></table></div><div class="table-foot" id="tableFoot">Loading records...</div>
       </div>
-    </main>
+          <section id="securityView" class="hidden">
+        <div class="page-head"><div><h1>Admin Credentials</h1><p>Update the username and password used to access this admin panel.</p></div></div>
+        <div class="card panel" style="max-width:620px">
+          <div class="panel-head"><div><h3>Change Admin Login</h3><p>Confirm your current password before saving new credentials.</p></div></div>
+          <form id="adminCredentialsForm" style="display:grid;gap:15px">
+            <div class="field"><label>Current password</label><input id="currentAdminPassword" type="password" autocomplete="current-password" required placeholder="Enter current password"></div>
+            <div class="field"><label>New username</label><input id="newAdminUsername" autocomplete="username" minlength="3" maxlength="60" required placeholder="Enter new username"></div>
+            <div class="field"><label>New password</label><input id="newAdminPassword" type="password" autocomplete="new-password" minlength="10" maxlength="128" required placeholder="At least 10 characters"></div>
+            <div class="field"><label>Confirm new password</label><input id="confirmAdminPassword" type="password" autocomplete="new-password" minlength="10" maxlength="128" required placeholder="Re-enter new password"></div>
+            <div id="credentialsError" class="error"></div>
+            <button class="primary" id="saveAdminCredentials" type="submit">Update Credentials</button>
+          </form>
+        </div>
+      </section>
+</main>
   </div>
   <div id="modalHost"></div><div id="toast" class="toast"></div>
 
@@ -147,13 +163,18 @@ $('loginForm').addEventListener('submit', async e => {
   
   try {
     const res = await window.callApi('adminLogin', $('username').value, $('password').value);
+    if (!res || res.success !== true || !res.token) throw new Error('Invalid credentials');
     token = res.token;
     $('loginScreen').classList.add('hidden');
     $('app').classList.remove('hidden');
     await loadDashboard();
     await loadContent();
   } catch (err) {
-    $('loginError').textContent = err.message;
+    token = '';
+    $('app').classList.add('hidden');
+    $('loginScreen').classList.remove('hidden');
+    $('loginError').textContent = /incorrect username or password|login failed|invalid credentials/i.test(String(err.message || ''))
+      ? 'Invalid username or password.' : err.message;
   } finally {
     $('loginButton').disabled = false;
     $('loginButton').textContent = 'Sign in to dashboard';
@@ -344,9 +365,10 @@ document.querySelectorAll('.nav-btn[data-view]').forEach(b => b.onclick = () => 
   $('studentsView').classList.toggle('hidden', view !== 'students');
   $('contentView').classList.toggle('hidden', view !== 'content');
   $('gradeContentView').classList.toggle('hidden', view !== 'gradeContent');
-  $('studentsTablePanel').classList.toggle('hidden', view === 'content' || view === 'gradeContent');
+  $('securityView').classList.toggle('hidden', view !== 'security');
+  $('studentsTablePanel').classList.toggle('hidden', view === 'content' || view === 'gradeContent' || view === 'security');
   
-  $('crumbText').textContent = view === 'dashboard' ? 'Dashboard' : view === 'students' ? 'Students' : view === 'gradeContent' ? 'Grade Content' : 'Website Content';
+  $('crumbText').textContent = view === 'dashboard' ? 'Dashboard' : view === 'students' ? 'Students' : view === 'gradeContent' ? 'Grade Content' : view === 'security' ? 'Admin Credentials' : 'Website Content';
   $('tableTitle').textContent = view === 'dashboard' ? 'Recent Students' : 'All Students';
   document.querySelectorAll('.nav-btn[data-view]').forEach(x => x.classList.toggle('active', x === b));
   $('sidebar').classList.remove('open');
@@ -354,6 +376,38 @@ document.querySelectorAll('.nav-btn[data-view]').forEach(b => b.onclick = () => 
   if (view === 'students') $('searchInput').focus();
   if (view === 'content') loadContent();
   if (view === 'gradeContent') loadGradeContent();
+});
+
+$('adminCredentialsForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const currentPassword = $('currentAdminPassword').value;
+  const newUsername = $('newAdminUsername').value.trim();
+  const newPassword = $('newAdminPassword').value;
+  const confirmPassword = $('confirmAdminPassword').value;
+  $('credentialsError').textContent = '';
+  if (newPassword !== confirmPassword) {
+    $('credentialsError').textContent = 'New passwords do not match.';
+    return;
+  }
+  const button = $('saveAdminCredentials');
+  button.disabled = true;
+  button.textContent = 'Updating...';
+  try {
+    await window.callApi('adminChangeCredentials', token, currentPassword, newUsername, newPassword);
+    alert('Admin credentials updated. Please sign in using your new username and password.');
+    await logout(false);
+    $('username').value = newUsername;
+    $('password').value = '';
+    $('loginError').textContent = '';
+  } catch (err) {
+    $('credentialsError').textContent = err.message || 'Unable to update credentials.';
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Update Credentials';
+    $('currentAdminPassword').value = '';
+    $('newAdminPassword').value = '';
+    $('confirmAdminPassword').value = '';
+  }
 });
 
 async function logout(callApi = true) {
